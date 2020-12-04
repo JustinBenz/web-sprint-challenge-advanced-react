@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
 export default class PlantList extends Component {
@@ -14,13 +14,14 @@ export default class PlantList extends Component {
   //   - set the returned plants array to this.state.plants
   componentDidMount() {
     axios
-      .get("http://localhost:3333/plants")
-      .then((res) => {
-        this.setState([plants])
-      })
-      .catch((fuzz) => {
-        console.log("got an error", fuzz)
-      })
+    .get("http://localhost:3333/plants")
+    .then((res) => {
+      console.log(res)
+      this.setState({plants: res.data.plantsData})
+    })
+    .catch((fuzz) => {
+      console.log("got an error", fuzz)
+    })
   }
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
