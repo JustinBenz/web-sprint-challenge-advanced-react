@@ -1,6 +1,7 @@
+import e from "express";
 import React, { useState } from "react";
 
-const initialValue = {
+const initialValues = {
   firstName: "",
   lastName: "",
   address: "",
@@ -13,18 +14,23 @@ const initialValue = {
 // Build out the logic needed for a form custom hook (see the useForm.js file)
 // and replace the necessary stateful logic from CheckoutForm with the hook
 
-const CheckoutForm = (props) => {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
-
+const useForm = (keys, initialValues) => {
+  const [values, setValues] = useState(initialValues)
   const handleChanges = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  return ([values, handleChanges])
+}
+
+const CheckoutForm = (props) => {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [values, handleChanges] = useForm(initialValues)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccessMessage(true);
-  };
+  }
 
   return (
     <>
